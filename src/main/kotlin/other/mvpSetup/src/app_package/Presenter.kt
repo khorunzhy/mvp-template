@@ -12,7 +12,7 @@ fun presenter(
 import ru.drinkit.ui.common.CommonInteractionPresenter
 import ru.drinkit.ui.common.presentation.Presenter
 
-interface ${presenterName} : Presenter<${viewName}>
+interface $presenterName : Presenter<${viewName}>
 
 class ${presenterName}Impl (
 	private val interactor: ${interactorName},
