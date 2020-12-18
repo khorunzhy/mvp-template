@@ -1,19 +1,26 @@
 <idea-plugin>
-    <id>com.github.khorunzhy.mvptemplate</id>
-    <name>mvp-template</name>
+    <id>com.github.khorunzhy.mvpsetup</id>
+    <name>mvp-setup</name>
     <vendor>khorunzhy</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.android</depends>
+    <depends>org.jetbrains.kotlin</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.khorunzhy.mvptemplate.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.khorunzhy.mvptemplate.services.MyProjectService"/>
+        <applicationService serviceImplementation="com.github.khorunzhy.mvpsetup.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.github.khorunzhy.mvpsetup.services.MyProjectService"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="com.android.tools.idea.wizard.template">
+        <wizardTemplateProvider implementation="other.WizardTemplateProviderImpl" />
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.khorunzhy.mvptemplate.listeners.MyProjectManagerListener"
+        <listener class="com.github.khorunzhy.mvpsetup.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>

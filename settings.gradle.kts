@@ -1,1 +1,1 @@
-rootProject.name = "mvp-template"
+rootProject.name = "mvp-setup"

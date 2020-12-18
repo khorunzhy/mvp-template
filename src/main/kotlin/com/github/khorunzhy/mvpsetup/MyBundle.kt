@@ -1,4 +1,4 @@
-package com.github.khorunzhy.mvptemplate
+package com.github.khorunzhy.mvpsetup
 
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls
