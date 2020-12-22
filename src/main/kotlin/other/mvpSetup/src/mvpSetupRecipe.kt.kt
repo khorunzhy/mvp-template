@@ -10,7 +10,6 @@ import com.intellij.psi.PsiFileFactory
 import com.intellij.psi.PsiManager
 import org.jetbrains.kotlin.idea.KotlinLanguage
 import other.mvpSetup.src.app_package.fragmentLayout
-import other.mvpSetup.src.app_package.component
 import other.mvpSetup.src.app_package.fragment
 import other.mvpSetup.src.app_package.interactor
 import other.mvpSetup.src.app_package.module
@@ -38,23 +37,21 @@ fun RecipeExecutor.mvpSetup(
   val presenterName = "${entityName}Presenter"
   val userInteractionName = "${entityName}UserInteraction"
   val moduleName = "${entityName}Module"
-  val componentName = "${entityName}Component"
+  val moduleFunc = "${entityName.decapitalize()}UiModule"
   val interactorName = "${entityName}Interactor"
   val routerName = "${entityName}Router"
+  val bindingName = "${layoutName.split("_").joinToString(separator = "", transform = String::capitalize)}Binding"
 
   fragmentLayout()
       .save(directoryRes, "layout", "${layoutName}.xml")
 
-  fragment(packageName, entityName, viewName, presenterName, userInteractionName, layoutName, projectData)
+  fragment(packageName, entityName, viewName, userInteractionName, presenterName, layoutName, bindingName, moduleFunc, projectData)
       .save(directorySrc, packageName, "${viewName}.kt")
 
   userInteraction(packageName, userInteractionName)
       .save(directorySrc, packageName, "${userInteractionName}.kt")
 
-  component(packageName, presenterName, moduleName, componentName)
-      .save(directorySrc, packageName, "${componentName}.kt")
-
-  module(packageName, presenterName, moduleName, interactorName, routerName)
+  module(packageName, moduleFunc, presenterName, interactorName)
       .save(directorySrc, packageName, "${moduleName}.kt")
 
   interactor(packageName, interactorName)

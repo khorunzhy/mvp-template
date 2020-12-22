@@ -16,7 +16,7 @@ interface $presenterName : Presenter<${viewName}>
 
 class ${presenterName}Impl (
 	private val interactor: ${interactorName},
-	private val router: ${routerName} 
+	private val router: $routerName 
 ) : CommonInteractionPresenter<${viewName}, ${userInteractionName}>(), $presenterName {
 
 }

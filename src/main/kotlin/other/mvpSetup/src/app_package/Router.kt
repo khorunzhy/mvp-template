@@ -5,11 +5,6 @@ fun router(
   routerName: String,
 ) = """package $packageName
 
-import ru.drinkit.ui.common.navigation.Navigator
-
-interface $routerName 
-
-class ${routerName}Impl(private val navigator: Navigator) : $routerName
-
+interface $routerName
 
 """

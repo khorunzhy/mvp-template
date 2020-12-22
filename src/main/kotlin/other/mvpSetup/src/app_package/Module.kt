@@ -2,30 +2,19 @@ package other.mvpSetup.src.app_package
 
 fun module(
     packageName: String,
+    moduleFunc: String,
     presenterName: String,
-    moduleName: String,
-    interactorName: String,
-    routerName: String,
+    interactorName: String
 )= """package $packageName
 
-import ru.drinkit.ui.common.navigation.Navigator
-import dagger.Module
-import dagger.Provides
+import org.kodein.di.DI.Module
+import org.kodein.di.bind
+import org.kodein.di.instance
+import org.kodein.di.provider
 
-@Module
-class $moduleName {
-
-    @Provides
-    fun provide${interactorName}(): $interactorName = ${interactorName}Impl()
-
-    @Provides
-    fun provide${routerName}(navigator: Navigator): $routerName = ${routerName}Impl(navigator)
-
-    @Provides
-    fun provide${presenterName}(
-      interactor: ${interactorName}, 
-      router: ${routerName}): $presenterName = ${presenterName}Impl(interactor, router)
-
+fun $moduleFunc(): Module = Module("$moduleFunc") {
+  bind<${interactorName}>() with provider { ${interactorName}Impl() }
+  bind<${presenterName}>() with provider { ${presenterName}Impl(instance(), instance()) }
 }
 
 """

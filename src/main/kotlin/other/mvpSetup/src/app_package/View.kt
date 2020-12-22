@@ -6,34 +6,35 @@ fun fragment(
   packageName: String,
   entityName: String,
   viewName: String,
-  presenterName: String,
   interactionViewName: String,
+  presenterName: String,
   layoutName: String,
+  bindingName: String,
+  moduleFunc: String,
   projectData: ProjectTemplateData
 ) = """package $packageName
 
-import ru.drinkit.ui.common.presentation.View
-import ru.drinkit.ui.common.CommonFragment
-import ru.drinkit.app.AppComponent
+import org.kodein.di.DI.Module
+import org.kodein.di.direct
+import org.kodein.di.instance
 import ${projectData.applicationPackage}.R
 import ${projectData.applicationPackage}.R.layout
+import ${projectData.applicationPackage}.databinding.${bindingName}
+import ru.drinkit.ui.view.CommonFragment
+import ru.drinkit.ui.view.View
+import ru.drinkit.ui.view.viewbinding.viewBinding
 
 interface $viewName : View 
 
 class ${entityName}Fragment : CommonFragment<${viewName}>(
     layout.${layoutName}
 ), ${viewName}, $interactionViewName {
-	
-  private lateinit var presenter: $presenterName
 
-  override fun onInjectDependencies(injector: AppComponent) {
-    presenter = injector
-        .plus${entityName}Component()
-        .build()
-        .presenter()
-  }
+  private val viewBinding by viewBinding<${bindingName}>()
+  
+  override fun provideModule(): Module = $moduleFunc()
+  override fun providePresenter(): $presenterName = di.direct.instance()
 
-  override fun providePresenter() = presenter
 }
 """
 fun fragmentLayout() = """<?xml version="1.0" encoding="utf-8"?>
